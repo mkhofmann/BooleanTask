@@ -1,0 +1,10 @@
+
+public class SCADWriter {
+	public static void writeSCAD(String[] lines, String filename){
+		PrintWriter writer = new PrintWriter(filename+".scad", "UTF-8");
+		for(String line: lines){
+			writer.println(line);
+		}
+		writer.close();
+	}
+}
