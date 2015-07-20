@@ -74,13 +74,26 @@ public class Tasks {
 		result+= Codes.union(lines);
 		return result;
 	}
-	public static String hullAtLocation(String model1, float x1, float y1, float z1, String model2, float x2, float y2, float z2){
+	public static String platFormMinkowski(String model, float x, float y, float z, float zUp){
+		String result ="";
+		String[] minkowski ={
+				Codes.translate(0,0,-z, Codes.cube(x, y, z)),
+				Tasks.crop(model, 0, 0, 0, x, y, zUp)
+				};
+		String[] union ={
+				model/*assume positioning*/,
+				Codes.minkowski(minkowski)
+				};
+		result+= Codes.union(union);		
+		return result;
+	}
+	public static String unionByPlatFormMinkowski(String model1, String model2, float x, float y, float z, float zUp){
 		String result="";
 		String[] lines ={
-				Codes.translate(x1, y1, z1, model1),
-				Codes.translate(x2, y2, z2, model2)
+				Tasks.platFormMinkowski(model1, x, y, z, zUp),
+				Codes.rotate(180, 0, 0, Tasks.platFormMinkowski(model2, x, y, z, zUp))
 				};
-		result+= Codes.hull(lines);
+		result+= Codes.union(lines);
 		return result;
 	}
 	
@@ -109,13 +122,16 @@ public class Tasks {
 			lines = new String[1];
 			lines[0] = Tasks.platForm(Codes.importSTL(args[1]), 100, 100, 3);
 			break;
+		case 5://minkowski//concept not working, adapt in SCAD
+			//TODO: Fix concept
+			lines = new String[1];
+			lines[0] = Tasks.platFormMinkowski(Codes.cylinder(10, 30), 100, 100, 3, 6);
+			break;
 		case 6://union platform
 			lines = new String[1];
 			lines[0] = Tasks.unionByPlatForm(Codes.importSTL(args[1]), Codes.cylinder(5, 10), 40, 40, 3);
 			break;
-		case 7://hullTranslate
-			lines = new String[1];
-			lines[0] = Tasks.hullAtLocation(Codes.importSTL(args[1]), 0, 0,0, Codes.cylinder(5, 10), 5, 5, 5);
+		case 7: //union minkowski
 			break;
 		default:
 			break;

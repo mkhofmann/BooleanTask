@@ -1,6 +1,0 @@
-import java.util.ArrayList;
-
-public class Model {
-	public String code ="";
-	public ArrayList<ArrayList<Model>> subModels = new ArrayList<ArrayList<Model>>(3);
-}

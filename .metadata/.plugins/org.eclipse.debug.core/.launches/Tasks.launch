@@ -7,6 +7,6 @@
 <listEntry value="1"/>
 </listAttribute>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="Tasks"/>
-<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="7&#13;&#10;LegoTest.stl"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="6&#13;&#10;LegoTest.stl"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="BooleanTasks"/>
 </launchConfiguration>

@@ -41,9 +41,6 @@ public class Codes {
 	public static String minkowski(String[] lines){
 		return "minkowski(){\n"+Codes.multiLine(lines)+"}";
 	}
-	public static String hull(String[] lines){
-		return "hull(){\n"+Codes.multiLine(lines)+"}";
-	}
 	
 	public static void main(String[] args){//0: input, 1: stl filename// all tests are succesfull
 		String[] lines=null;
@@ -112,13 +109,6 @@ public class Codes {
 			mlines[1] =Codes.cylinder(10, 20);
 			lines= new String[1];
 			lines[0]= Codes.minkowski(mlines);
-			break;
-		case 12: //hull
-			mlines= new String[2];
-			mlines[0] =Codes.cube(10, 20, 30);
-			mlines[1] =Codes.cylinder(10, 20);
-			lines= new String[1];
-			lines[0]= Codes.hull(mlines);
 			break;
 		}
 		SCADWriter.writeSCAD(lines, "CodesTest");
