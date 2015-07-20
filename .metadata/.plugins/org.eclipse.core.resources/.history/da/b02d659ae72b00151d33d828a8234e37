@@ -1,0 +1,12 @@
+import javax.swing.JApplet;
+
+public class BasicApplet extends JApplet {
+
+	/**
+	 * Create the applet.
+	 */
+	public BasicApplet() {
+
+	}
+
+}
