@@ -11,8 +11,7 @@ import language.Node;
 import language.Translate;
 import language.Union;
 
-public class Gauntlet extends Node{
-	private Difference halfCut;
+public class Gauntlet extends Arm{
 	private double t;
 	private double interval;
 	private double width;
@@ -28,7 +27,7 @@ public class Gauntlet extends Node{
 		this.velcroWidth = interval -2*t;
 		this.circs = circs;
 		this.maxCirc = Collections.max(circs);
-		this.maxR = maxCirc/((double) (2*Math.PI));
+		this.maxR = maxCirc/(2*Math.PI);
 		this.width = width;
 		
 		ArrayList<Node> shells = new ArrayList<Node>(circs.size());
@@ -42,26 +41,26 @@ public class Gauntlet extends Node{
 		ArrayList<Node> set = new ArrayList<Node>(2);
 		set.add(shell);
 		set.add(translateCut);
-		halfCut = new Difference(set);
+		super.arm = new Difference(set);
 	}
 	
 	private Difference shell(double circ1, double circ2){
 		Difference shell = new Difference(new ArrayList<Node>());
 		shell.addChild(this.rectCyl(circ1, circ2));//outer
-		shell.addChild(new Cylinder((double)circ1,(double)circ2,interval));//inner
+		shell.addChild(new Cylinder(circ1,circ2,interval, true));//inner
 		shell.addChild(new Translate(new Cube(maxR*2+2*t,2*t, this.velcroWidth),-maxR-t, t, t));//velcroslot
 		return shell;
 	}
 	private Union rectCyl(double circ1, double circ2){
 		Union rectCyl = new Union(new ArrayList<Node>());
-		rectCyl.addChild(new Cylinder((double)circ1+2*Math.PI*t,(double)circ2+2*Math.PI*t,interval));//cyl
+		rectCyl.addChild(new Cylinder(circ1+2*Math.PI*t,circ2+2*Math.PI*t,interval,true));//cyl
 		rectCyl.addChild(new Translate(new Cube(width, maxR+t,interval), -width/2, 0,0));//rect
 		return rectCyl;
 	}
 	
 	@Override
-	public String encode() {
-		return halfCut.encode();
+	public Translate lowerCenter() {
+		return new Translate(super.arm,0,0,-(this.circs.size()-1)*this.interval);
 	}
 	
 	public static void main(String[] args){
@@ -93,7 +92,7 @@ public class Gauntlet extends Node{
 				megCircs.add(160.0);
 				megCircs.add(150.0);
 				Gauntlet megan = new Gauntlet(t,intv, width, megCircs);
-				SCADWriter.writeSCAD(megan.encode(), "MeganGauntlet");
+				SCADWriter.writeSCAD(megan.lowerCenter().encode(), "MeganGauntlet");
 				break;
 			default:
 				break;
@@ -101,5 +100,7 @@ public class Gauntlet extends Node{
 		
 		
 	}
+
+
 	
 }
