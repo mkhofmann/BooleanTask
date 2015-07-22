@@ -1,6 +1,7 @@
-public abstract class SingleChildActionNode extends ActionNode {
+package language;
+public abstract class Modifier extends Action {
 	private Node child;
-	public SingleChildActionNode(Node n,String a) {
+	public Modifier(Node n,String a) {
 		super(a);
 		child = n;
 	}

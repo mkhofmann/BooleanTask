@@ -1,12 +1,13 @@
+package language;
 import java.util.ArrayList;
 
-public class DifferenceNode extends MultiChildActionNode {
+public class Difference extends Set {
 
-	public DifferenceNode(ArrayList<Node> c) {
+	public Difference(ArrayList<Node> c) {
 		super(c, "difference() ");
 		//NOTE: ASSUMES 0 index is priority model
 	}
-	public DifferenceNode(){
+	public Difference(){
 		super("difference() ");
 	}
 
