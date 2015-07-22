@@ -1,16 +1,16 @@
 package language;
 
 public class Cube extends Model{
-	private float x;
-	private float y;
-	private float z;
-	public Cube(float x, float y, float z) {
+	private double x;
+	private double y;
+	private double z;
+	public Cube(double x, double y, double z) {
 		super("cube(["+x+","+y+","+z+"])");
 		this.x=x;
 		this.y=y;
 		this.z=z;
 	}
-	public Cube(float x, float y, float z, boolean center){
+	public Cube(double x, double y, double z, boolean center){
 		super("cube(["+x+","+y+","+z+"], center="+center+");");
 		this.x=x;
 		this.y=y;
@@ -18,9 +18,9 @@ public class Cube extends Model{
 	}
 	
 	public Translate center(boolean xC, boolean yC, boolean zC){
-		float halfX = x/2;
-		float halfY= y/2;
-		float halfZ= z/2;
+		double halfX = x/2;
+		double halfY= y/2;
+		double halfZ= z/2;
 		if(xC){
 			if(yC){
 				if(zC)//xyz

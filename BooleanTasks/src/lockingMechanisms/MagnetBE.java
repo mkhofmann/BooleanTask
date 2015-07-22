@@ -11,11 +11,11 @@ import language.Translate;
 import language.TranslateSet;
 
 public class MagnetBE extends BelowElbow{
-	private static final float MAGD = 9;
-	private static final float MAGR = MagnetBE.MAGD/2;
-	private static final float MAGH = 10;
+	private static final double MAGD = 9;
+	private static final double MAGR = MagnetBE.MAGD/2;
+	private static final double MAGH = 10;
 
-	public MagnetBE(float l, float nl, float nS,float sp) {
+	public MagnetBE(double l, double nl, double nS,double sp) {
 		super((nS+6*Node.MIN_THICKNESS+2*MagnetBE.MAGD+sp*2),l,nl,nS,MAGH+Node.MIN_THICKNESS, (nS+4*Node.MIN_THICKNESS+2*MagnetBE.MAGD),sp);
 	}
 	//TODO: other constructors by max Side, max Head
@@ -25,7 +25,7 @@ public class MagnetBE extends BelowElbow{
 	}
 	private Set magnets(){
 		ArrayList<Node> mags = new ArrayList<Node>(4);
-		float x = super.neckS/2+MagnetBE.MAGR+Node.MIN_THICKNESS;
+		double x = super.neckS/2+MagnetBE.MAGR+Node.MIN_THICKNESS;
 		mags.add(new Translate(this.magnet(),-x,-x,0));
 		mags.add(new Translate(this.magnet(),x,-x,0));
 		mags.add(new Translate(this.magnet(),-x,x,0));
@@ -52,10 +52,10 @@ public class MagnetBE extends BelowElbow{
 	}
 
 	public static void main(String[] args){;
-		float length=100;
-		float neckL=60;
-		float neckS=20;
-		float space=1;
+		double length=100;
+		double neckL=60;
+		double neckS=20;
+		double space=1;
 		MagnetBE lockTest = new MagnetBE(length,neckL,neckS,space);
 		SCADWriter.writeSCAD(lockTest.encodeMechanism(), "MagnetBETest");
 	}

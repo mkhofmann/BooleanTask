@@ -1,7 +1,7 @@
 package language;
 public class Scale extends Modifier {
 
-	public Scale(Node n,float x, float y, float z) {
+	public Scale(Node n,double x, double y, double z) {
 		super(n,"scale(["+x+","+y+","+z+"]) ");
 	}
 	

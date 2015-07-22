@@ -10,17 +10,17 @@ import language.Translate;
 import language.Union;
 
 public class BelowElbow extends LockingMechanism{
-	float side;
-	float length;
-	float neckL;
-	float neckS;
-	float headL;
-	float headS;
-	float space;
-	float twoSpace;
+	double side;
+	double length;
+	double neckL;
+	double neckS;
+	double headL;
+	double headS;
+	double space;
+	double twoSpace;
 	
 	
-	public BelowElbow(float s, float l, float nl, float nS, float hl, float hS, float sp){
+	public BelowElbow(double s, double l, double nl, double nS, double hl, double hS, double sp){
 		super();
 		this.side = s;
 		this.length =l;
@@ -69,13 +69,13 @@ public class BelowElbow extends LockingMechanism{
 	}
 	
 	public static void main(String[] args){
-		float side=50;
-		float length=100;
-		float neckL=60;
-		float neckS=20;
-		float headL=10;
-		float headS=40;
-		float space=1;
+		double side=50;
+		double length=100;
+		double neckL=60;
+		double neckS=20;
+		double headL=10;
+		double headS=40;
+		double space=1;
 		BelowElbow lockTest = new BelowElbow(side,length,neckL,neckS,headL,headS,space);
 		SCADWriter.writeSCAD(lockTest.LowerCenterKey().encode(), "BelowElbowTest");
 	}

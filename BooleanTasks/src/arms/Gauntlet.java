@@ -13,22 +13,22 @@ import language.Union;
 
 public class Gauntlet extends Node{
 	private Difference halfCut;
-	private float t;
-	private float interval;
-	private float width;
-	private float velcroWidth;
-	private ArrayList<Float> circs;
-	private float maxCirc;
-	private float maxR;
+	private double t;
+	private double interval;
+	private double width;
+	private double velcroWidth;
+	private ArrayList<Double> circs;
+	private double maxCirc;
+	private double maxR;
 	
-	Gauntlet(float t,float interval, float width, ArrayList<Float> circs) {
+	Gauntlet(double t,double interval, double width, ArrayList<Double> circs) {
 		super();
 		this.t=t;
 		this.interval= interval;
 		this.velcroWidth = interval -2*t;
 		this.circs = circs;
 		this.maxCirc = Collections.max(circs);
-		this.maxR = maxCirc/((float) (2*Math.PI));
+		this.maxR = maxCirc/((double) (2*Math.PI));
 		this.width = width;
 		
 		ArrayList<Node> shells = new ArrayList<Node>(circs.size());
@@ -45,14 +45,14 @@ public class Gauntlet extends Node{
 		halfCut = new Difference(set);
 	}
 	
-	private Difference shell(float circ1, float circ2){
+	private Difference shell(double circ1, double circ2){
 		Difference shell = new Difference(new ArrayList<Node>());
 		shell.addChild(this.rectCyl(circ1, circ2));//outer
 		shell.addChild(new Cylinder((double)circ1,(double)circ2,interval));//inner
 		shell.addChild(new Translate(new Cube(maxR*2+2*t,2*t, this.velcroWidth),-maxR-t, t, t));//velcroslot
 		return shell;
 	}
-	private Union rectCyl(float circ1, float circ2){
+	private Union rectCyl(double circ1, double circ2){
 		Union rectCyl = new Union(new ArrayList<Node>());
 		rectCyl.addChild(new Cylinder((double)circ1+2*Math.PI*t,(double)circ2+2*Math.PI*t,interval));//cyl
 		rectCyl.addChild(new Translate(new Cube(width, maxR+t,interval), -width/2, 0,0));//rect
@@ -65,33 +65,33 @@ public class Gauntlet extends Node{
 	}
 	
 	public static void main(String[] args){
-		float t= 3;
-		float intv =30;
-		float width = 40;
+		double t= 3;
+		double intv =30;
+		double width = 40;
 		switch(Integer.parseInt(args[0])){
 			case 0:
-				ArrayList<Float> elaineCircs = new ArrayList<Float>(8);
-				elaineCircs.add(280f);
-				elaineCircs.add(270f);
-				elaineCircs.add(262f);
-				elaineCircs.add(240f);
-				elaineCircs.add(225f);
-				elaineCircs.add(200f);
-				elaineCircs.add(165f);
-				elaineCircs.add(155f);
+				ArrayList<Double> elaineCircs = new ArrayList<Double>(8);
+				elaineCircs.add(280.0);
+				elaineCircs.add(270.0);
+				elaineCircs.add(262.0);
+				elaineCircs.add(240.0);
+				elaineCircs.add(225.0);
+				elaineCircs.add(200.0);
+				elaineCircs.add(165.0);
+				elaineCircs.add(155.0);
 				Gauntlet elaine = new Gauntlet(t,intv, width, elaineCircs);
 				SCADWriter.writeSCAD(elaine.encode(), "ElaineGauntlet");
 				break;
 			case 1:
-				ArrayList<Float> megCircs = new ArrayList<Float>(8);
-//				megCircs.add(220f);
-//				megCircs.add(230f);
-//				megCircs.add(230f);
-//				megCircs.add(220f);
-				megCircs.add(200f);
-				megCircs.add(170f);
-				megCircs.add(160f);
-				megCircs.add(150f);
+				ArrayList<Double> megCircs = new ArrayList<Double>(8);
+				megCircs.add(220.0);
+				megCircs.add(230.0);
+				megCircs.add(230.0);
+				megCircs.add(220.0);
+				megCircs.add(200.0);
+				megCircs.add(170.0);
+				megCircs.add(160.0);
+				megCircs.add(150.0);
 				Gauntlet megan = new Gauntlet(t,intv, width, megCircs);
 				SCADWriter.writeSCAD(megan.encode(), "MeganGauntlet");
 				break;

@@ -9,32 +9,32 @@ import language.Translate;
 import language.Union;
 
 public class Tasks {
-	public static Node mold(Node model, float x, float y, float z){
+	public static Node mold(Node model, double x, double y, double z){
 		Difference diff = new Difference();
 		diff.addChild(new Cube(x,y,z));
 		diff.addChild(model);		
 		return diff;
 	}
 
-	public static Node crop(Node model, float xZero, float yZero, float zZero, float x, float y, float z){
+	public static Node crop(Node model, double xZero, double yZero, double zZero, double x, double y, double z){
 		Intersection inter = new Intersection();
 		inter.addChild(new Translate(new Cube(x,y,z),xZero,yZero,zZero));
 		inter.addChild(model);		
 		return inter;
 	}
-	public static Node flatBottom(Node model, float x, float y, float z){
+	public static Node flatBottom(Node model, double x, double y, double z){
 		Difference diff = new Difference();
 		diff.addChild(model);	
 		diff.addChild(new Translate(new Cube(x,y,z),0,0,-z));
 		return diff;
 	}
-	public static Node platForm(Node model, float x, float y, float z){
+	public static Node platForm(Node model, double x, double y, double z){
 		Union union = new Union();
 		union.addChild(model);	
 		union.addChild(new Translate(new Cube(x,y,z),0,0,-z));
 		return union;
 	}
-	public static Node unionByPlatForm(Node model1, Node model2, float x, float y, float z){
+	public static Node unionByPlatForm(Node model1, Node model2, double x, double y, double z){
 		Union union = new Union();
 		union.addChild(Tasks.platForm(model1, x, y, z));
 		union.addChild(new Rotate(Tasks.platForm(model2, x, y, z), 180,0,0));
