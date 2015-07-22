@@ -1,0 +1,18 @@
+import java.util.ArrayList;
+
+public abstract class Node {
+	private ArrayList<Node> children;
+	
+	Node(ArrayList<Node> c){
+		children =c;
+	}
+	
+	public void addChild(Node c){
+		children.add(c);
+	}
+	public Node getChilde(int i){
+		return children.get(i);
+	}
+	public abstract String encode();
+	
+}

@@ -1,0 +1,17 @@
+import java.util.ArrayList;
+
+public class TranslateNode extends ActionNode {
+
+	public TranslateNode(Node n,float x, float y, float z) {
+		super(new ArrayList<Node>,Codes.translate(x, y, z, ""));
+		super.addChild(n);
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public String encode() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+}

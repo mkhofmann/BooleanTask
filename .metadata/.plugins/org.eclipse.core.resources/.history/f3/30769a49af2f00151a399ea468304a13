@@ -1,0 +1,21 @@
+
+public class ModelCommand<Model, String> {
+	private Model model;
+	private String command;
+    public ModelCommand(Model m, String s) {
+        this.model = m;
+        this.command = s;
+    }
+    public Model getModel() {
+		return model;
+	}
+	public void setModel(Model model) {
+		this.model = model;
+	}
+	public String getStr() {
+		return command;
+	}
+	public void setStr(String str) {
+		this.command = str;
+	}
+}

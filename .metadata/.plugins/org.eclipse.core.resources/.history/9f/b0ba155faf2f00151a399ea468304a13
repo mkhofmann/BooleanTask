@@ -1,0 +1,17 @@
+
+public class ModelCommand<Model, String> {
+	public Model model;
+	private String command;
+    public ModelCommand(Model m, String s) {
+        this.model = m;
+        this.command = s;
+    }	this.model = model;
+	}
+	public String getCommand() {
+		return command;
+	}
+	public void setCommand(String str) {
+		//TODO: Lock command settings
+		this.command = str;
+	}
+}

@@ -1,0 +1,9 @@
+
+public class ActionNode extends Node{
+
+	ActionNode(Node l, Node r) {
+		super(l, r);
+		// TODO Auto-generated constructor stub
+	}
+
+}

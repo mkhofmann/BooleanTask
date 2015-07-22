@@ -1,0 +1,12 @@
+import java.util.ArrayList;
+
+public abstract class ActionNode extends Node{
+	String action;
+	ActionNode(ArrayList<Node> c, String a) {
+		super(c);
+		action =a;
+	}
+	//TODO extend function types
+	
+
+}

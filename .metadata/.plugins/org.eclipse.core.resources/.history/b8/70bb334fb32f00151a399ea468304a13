@@ -1,0 +1,15 @@
+
+public abstract class Node {
+	private ArrayList<Node> children;
+	
+	Node(ArrayList<Node> c){
+		children =c;
+	}
+	
+	public void addChild(Node c){
+		chilren.add(c);
+	}
+	
+	public abstract String encode();
+	
+}

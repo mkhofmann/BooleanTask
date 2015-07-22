@@ -1,0 +1,8 @@
+
+public class CylinderModelNode extends ModelNode {
+
+	CylinderModelNode(float r, float h) {
+		super(Codes.cylinder(r, h));
+	}
+
+}

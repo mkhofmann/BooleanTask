@@ -1,0 +1,14 @@
+import java.util.ArrayList;
+
+public abstract class SingleChildActionNode {
+	public SingleChildActionNode(Node n,float x, float y, float z) {
+		super(new ArrayList<Node>(),Codes.translate(x, y, z, ""));
+		super.addChild(n);
+	}
+
+	@Override
+	public String encode() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+}

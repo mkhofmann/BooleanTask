@@ -1,0 +1,12 @@
+package nodes;
+import java.util.ArrayList;
+
+import MultiChildActionNode;
+import Node;
+
+public class UnionNode extends MultiChildActionNode {
+
+	public UnionNode(ArrayList<Node> c) {
+		super(c, "union() ");
+	}
+}

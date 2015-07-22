@@ -1,0 +1,15 @@
+import java.util.ArrayList;
+
+public class UnionNode extends ActionNode {
+
+	public UnionNode(ArrayList<Node> c, String a) {
+		super(c, a);
+	}
+
+	@Override
+	public String encode() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

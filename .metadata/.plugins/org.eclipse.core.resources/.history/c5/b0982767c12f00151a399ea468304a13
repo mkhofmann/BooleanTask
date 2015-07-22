@@ -1,0 +1,40 @@
+import java.util.ArrayList;
+import java.util.Collections;
+
+public class Gauntlet extends Node{
+	private DifferenceNode halfCut;
+	
+	Gauntlet(float t,float interval, int numIntervals, ArrayList<Float> circs) {
+		super(new ArrayList<Node>(1));
+		ArrayList<Node> shells = new ArrayList<Node>(numIntervals);
+		ArrayList<Node> cyls = new ArrayList<Node>(2);
+		float maxCirc = circs.get(0);
+		for(int i=0; i<numIntervals; i++){//build shells
+			//Find max Circ
+			if(maxCirc<circs.get(i+1))
+				maxCirc = circs.get(i+1);
+			//set Cylinders
+			cyls.set(0, new CylinderModelNode((double)circs.get(i)+2*Math.PI*t,
+												(double)circs.get(i+1)+2*Math.PI*t,
+												interval));//outer
+			cyls.set(1, new CylinderModelNode((double)circs.get(i),(double)circs.get(i+1),interval));//inner
+			//add to Shells
+			shells.set(i, new DifferenceNode(cyls));
+		}
+		HullNode shell = new HullNode(shells);//hull cylinders
+		float maxR = maxCirc/((float) (2*Math.PI));
+		CubeModelNode cut = new CubeModelNode(2*maxR+2*t,maxR+t, numIntervals*interval);
+		TranslateNode translateCut = new TranslateNode(cut, -1*(maxR+t), -1*(maxR+t), 0);
+		ArrayList<Node> set = new ArrayList<Node>(2);
+		set.set(0, shell);
+		set.set(1, translateCut);
+		halfCut = new DifferenceNode(set);
+		
+		super.addChild(halfCut);
+	}
+	@Override
+	public String encode() {
+		return halfCut.encode();
+	}
+	
+}

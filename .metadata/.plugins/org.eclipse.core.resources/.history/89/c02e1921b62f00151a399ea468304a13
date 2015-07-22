@@ -1,0 +1,13 @@
+import java.util.ArrayList;
+
+public abstract class SingleChildActionNode extends ActionNode {
+	public SingleChildActionNode(Node n) {
+		super(new ArrayList<Node>(),"");
+		super.addChild(n);
+	}
+
+	@Override
+	public String encode() {
+		return action+" "+super.getChild(0).encode();
+	}
+}

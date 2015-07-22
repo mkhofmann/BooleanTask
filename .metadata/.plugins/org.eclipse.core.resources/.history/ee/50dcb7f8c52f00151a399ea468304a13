@@ -1,0 +1,56 @@
+import java.util.ArrayList;
+import java.util.Collections;
+
+public class Gauntlet extends Node{
+	private DifferenceNode halfCut;
+	
+	Gauntlet(float t,float interval, int numIntervals, ArrayList<Float> circs) {
+		super();
+		ArrayList<Node> shells = new ArrayList<Node>(numIntervals);
+		ArrayList<Node> cyls = new ArrayList<Node>(2);
+		float maxCirc = circs.get(0);
+		for(int i=0; i<numIntervals-1; i++){//build shells
+			//Find max Circ
+			if(maxCirc<circs.get(i+1))
+				maxCirc = circs.get(i+1);
+			//set Cylinders
+			cyls.add(new CylinderModelNode((double)circs.get(i)+2*Math.PI*t,(double)circs.get(i+1)+2*Math.PI*t,interval));//outer
+			cyls.add( new CylinderModelNode((double)circs.get(i),(double)circs.get(i+1),interval));//inner
+			//add to Shells
+			shells.add(new DifferenceNode(cyls));
+		}
+		HullNode shell = new HullNode(shells);//hull shells
+		float maxR = maxCirc/((float) (2*Math.PI));
+		CubeModelNode cut = new CubeModelNode(2*maxR+2*t,maxR+t, numIntervals*interval);
+		TranslateNode translateCut = new TranslateNode(cut, -1*(maxR+t), -1*(maxR+t), 0);
+		ArrayList<Node> set = new ArrayList<Node>(2);
+		set.add(shell);
+		set.add(translateCut);
+		halfCut = new DifferenceNode(set);
+		
+		super.addChild(halfCut);
+	}
+	@Override
+	public String encode() {
+		return halfCut.encode();
+	}
+	
+	public static void main(String[] args){
+		float t= 3;
+		float intv =30;
+		int numIntervals = 7;
+		ArrayList<Float> elaineCircs = new ArrayList<Float>(8);
+		elaineCircs.add(280f);
+		elaineCircs.add(270f);
+		elaineCircs.add(262f);
+		elaineCircs.add(240f);
+		elaineCircs.add(225f);
+		elaineCircs.add(200f);
+		elaineCircs.add(165f);
+		elaineCircs.add(155f);
+		Gauntlet elaine = new Gauntlet(t,intv, numIntervals, elaineCircs);
+		SCADWriter.writeSCAD(elaine.encode(), "ElaineGauntlet");
+		
+	}
+	
+}

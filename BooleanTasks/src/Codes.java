@@ -1,6 +1,6 @@
 
 public class Codes {
-
+//TODO: remove this class
 	public static String importSTL(String file){
 		return "import(\""+file+"\",3)";
 	}
@@ -9,6 +9,9 @@ public class Codes {
 	}
 	public static String cylinder(float r, float h){
 		return "cylinder(r="+r+",h="+h+")";
+	}
+	public static String cylinder(float r1, float r2, float h){
+		return "cylinder(r1="+r1+",r2="+r2+",h="+h+")";
 	}
 	public static String scale(float x, float y, float z, String scaled){
 		return "scale(["+x+","+y+","+z+"]) "+scaled;
@@ -22,25 +25,28 @@ public class Codes {
 	public static String endLine(String line){
 		return line+";";
 	}
-	public static String multiLine(String[] lines){
-		String result="";
-		for(String line: lines){
-			result+=Codes.endLine(line)+"\n";
-		}
-		return result;
-	}
-	public static String union(String[] lines){
-		return "union(){\n"+Codes.multiLine(lines)+"}";
-	}
-	public static String difference(String[] lines){
-		return "difference(){\n"+Codes.multiLine(lines)+"}";
-	}
-	public static String intersection(String[] lines){
-		return "intersection(){\n"+Codes.multiLine(lines)+"}";
-	}
-	public static String minkowski(String[] lines){
-		return "minkowski(){\n"+Codes.multiLine(lines)+"}";
-	}
+//	public static String multiLine(String[] lines){
+//		String result="";
+//		for(String line: lines){
+//			result+=Codes.endLine(line)+"\n";
+//		}
+//		return result;
+//	}
+//	public static String union(String[] lines){
+//		return "union(){\n"+Codes.multiLine(lines)+"}";
+//	}
+//	public static String difference(String[] lines){
+//		return "difference(){\n"+Codes.multiLine(lines)+"}";
+//	}
+//	public static String intersection(String[] lines){
+//		return "intersection(){\n"+Codes.multiLine(lines)+"}";
+//	}
+//	public static String minkowski(String[] lines){
+//		return "minkowski(){\n"+Codes.multiLine(lines)+"}";
+//	}
+//	public static String hull(String[] lines){
+//		return "hull(){\n"+Codes.multiLine(lines)+"}";
+//	}
 	
 	public static void main(String[] args){//0: input, 1: stl filename// all tests are succesfull
 		String[] lines=null;
@@ -73,42 +79,6 @@ public class Codes {
 		case 6://endline
 			lines= new String[1];
 			lines[0]= Codes.endLine(Codes.translate(2, 3, 4, Codes.cube(10, 20, 30)));
-			break;
-		case 7://multiline
-			mlines= new String[3];
-			mlines[0] =Codes.cube(10, 20, 30);
-			mlines[1] =Codes.cylinder(10, 20);
-			mlines[2]= Codes.scale(2, 3, 4, Codes.cylinder(10, 20));
-			lines= new String[1];
-			lines[0]= Codes.multiLine(mlines);
-			break;
-		case 8://union
-			mlines= new String[2];
-			mlines[0] =Codes.cube(10, 20, 30);
-			mlines[1] =Codes.cylinder(10, 20);
-			lines= new String[1];
-			lines[0]= Codes.union(mlines);
-			break;
-		case 9://difference
-			mlines= new String[2];
-			mlines[0] =Codes.cube(10, 20, 30);
-			mlines[1] =Codes.cylinder(10, 20);
-			lines= new String[1];
-			lines[0]= Codes.difference(mlines);
-			break;
-		case 10://intersection
-			mlines= new String[2];
-			mlines[0] =Codes.cube(10, 20, 30);
-			mlines[1] =Codes.cylinder(10, 20);
-			lines= new String[1];
-			lines[0]= Codes.intersection(mlines);
-			break;
-		case 11: //minkowski
-			mlines= new String[2];
-			mlines[0] =Codes.cube(10, 20, 30);
-			mlines[1] =Codes.cylinder(10, 20);
-			lines= new String[1];
-			lines[0]= Codes.minkowski(mlines);
 			break;
 		}
 		SCADWriter.writeSCAD(lines, "CodesTest");

@@ -1,0 +1,9 @@
+import java.util.ArrayList;
+
+public class RotateNode extends SingleChildActionNode {
+
+	public RotateNode(Node n,float x, float y, float z) {
+		super(n,Codes.translate(x, y, z, ""));
+	}
+	
+}

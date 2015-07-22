@@ -1,0 +1,19 @@
+import java.util.ArrayList;
+
+public  class ActionNode extends Node{
+	String action;
+	
+	public ActionNode(ArrayList<Node> c, String a) {
+		super(c);
+		action =a;
+	}
+	//TODO extend function types
+
+	@Override
+	public String encode() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+
+}

@@ -1,0 +1,16 @@
+
+public class ActionNode extends Node{
+	String action ="";
+	ActionNode(Node l, Node r, String a) {
+		super(l, r);
+		action =a;
+		// TODO Auto-generated constructor stub
+	}
+	
+	public String encode(){
+		String result ="";
+		//TODO: Code
+		return result;
+	}
+
+}

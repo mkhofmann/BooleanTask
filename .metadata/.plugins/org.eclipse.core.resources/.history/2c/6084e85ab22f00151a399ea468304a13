@@ -1,0 +1,12 @@
+
+public abstract class Node {
+	Node left;
+	Node right;
+	
+	Node(Node l, Node r){
+		left =l;
+		right=r;
+	}
+	
+	
+}

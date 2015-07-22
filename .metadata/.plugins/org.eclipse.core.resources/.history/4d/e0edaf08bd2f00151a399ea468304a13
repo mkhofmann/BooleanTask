@@ -1,0 +1,30 @@
+import java.util.ArrayList;
+
+public class Gauntlet extends Node{
+	private float t;
+	private DifferenceNode halfCut;
+	private HullNode shell;
+	
+	Gauntlet(float th,float interval, int numIntervals, float[] circumfrances) {
+		super(new ArrayList<Node>(1));
+		t=th;
+		ArrayList<Node> shells = new ArrayList<Node>(numIntervals);
+		ArrayList<Node> cyls = new ArrayList<Node>(2);
+		float r1 =0;
+		float r2 =0;
+		for(int i=0; i<numIntervals; i++){//build shells
+			r1 = circumfrances[i]/((float) (2*Math.PI));
+			r2 = circumfrances[i+1]/((float) (2*Math.PI));
+			cyls.set(0, new CylinderModelNode(r+t, interval));//outer
+			cyls.set(1, new CylinderModelNode(r, interval));//inner
+			shells.set(i, new DifferenceNode(cyls));
+		}
+		shell = new HullNode(shells);//hull cylinders
+		super.addChild(halfCut);
+	}
+	@Override
+	public String encode() {
+		return halfCut.encode();
+	}
+	
+}

@@ -1,0 +1,13 @@
+
+public abstract class Node {
+	private Node left;
+	private Node right;
+	
+	Node(Node l, Node r){
+		left =l;
+		right=r;
+	}
+	
+	public abstract String encode();
+	
+}

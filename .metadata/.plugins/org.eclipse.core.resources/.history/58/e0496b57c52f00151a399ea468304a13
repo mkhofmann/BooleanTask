@@ -1,0 +1,14 @@
+import java.util.ArrayList;
+
+public abstract class ActionNode extends Node{
+	public String action;
+	
+	public ActionNode(ArrayList<Node> c, String a) {
+		super(c);
+		action =a;
+	}
+	//TODO extend function types
+	//union, difference, intersection
+	
+
+}

@@ -1,0 +1,15 @@
+
+public class ActionNode extends Node{
+	String action;
+	ActionNode(ArrayList<Node> c, String a) {
+		super(c);
+		action =a;
+	}
+	
+	public String encode(){
+		String result ="";
+		//TODO: code
+		return result;
+	}
+
+}

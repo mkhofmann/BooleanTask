@@ -1,0 +1,11 @@
+import java.util.ArrayList;
+
+public class DifferenceNode extends MultiChildActionNode {
+
+	public DifferenceNode(ArrayList<Node> c) {
+		super(c, "difference() ");
+		//NOTE: ASSUMES first is priority model
+	}
+
+
+}

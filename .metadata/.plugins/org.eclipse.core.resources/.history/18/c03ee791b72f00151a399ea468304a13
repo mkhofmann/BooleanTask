@@ -1,0 +1,18 @@
+import java.util.ArrayList;
+
+public class MultiChildActionNode extends ActionNode{
+
+	public MultiChildActionNode(ArrayList<Node> c, String a) {
+		super(c, a);
+	}
+
+	@Override
+	public String encode() {
+		String code =action+" {\n";
+		for(Node child: children ){
+			code+=child.encode()+"\n";
+		}
+		return code;
+	}
+
+}

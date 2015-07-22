@@ -1,0 +1,102 @@
+
+public class Tasks {
+	//TODO: use Tree structure
+	public static String mold(Node model, float x, float y, float z){
+		DifferenceNode diff = new DifferenceNode();
+		diff.addChild(new CubeModelNode(x,y,z));
+		diff.addChild(model);		
+		return diff.encode();
+	}
+
+	public static String crop(Node model, float xZero, float yZero, float zZero, float x, float y, float z){
+		IntersectionNode inter = new IntersectionNode();
+		inter.addChild(new TranslateNode(new CubeModelNode(x,y,z),xZero,yZero,zZero));
+		inter.addChild(model);		
+		return inter.encode();
+	}
+	public static String flatBottom(Node model, float x, float y, float z){
+		DifferenceNode diff = new DifferenceNode();
+		diff.addChild(model);	
+		diff.addChild(new TranslateNode(new CubeModelNode(x,y,z),0,0,-z));
+		return diff.encode();
+	}
+	public static String platForm(String model, float x, float y, float z){
+		String result ="";
+		String[] lines ={
+				model/*assume positioning*/, 
+				Codes.translate(0,0,-z, Codes.cube(x, y, z))
+				};
+		result+= Codes.union(lines);		
+		return result;
+	}
+	public static String unionByPlatForm(String model1, String model2, float x, float y, float z){
+		String result="";
+		String[] lines ={
+				Tasks.platForm(model1, x, y, z),
+				Codes.rotate(180, 0, 0, Tasks.platForm(model2, x, y, z))
+				};
+		result+= Codes.union(lines);
+		return result;
+	}
+	public static String platFormMinkowski(String model, float x, float y, float z, float zUp){
+		String result ="";
+		String[] minkowski ={
+				Codes.translate(0,0,-z, Codes.cube(x, y, z)),
+				Tasks.crop(model, 0, 0, 0, x, y, zUp)
+				};
+		String[] union ={
+				model/*assume positioning*/,
+				Codes.minkowski(minkowski)
+				};
+		result+= Codes.union(union);		
+		return result;
+	}
+	public static String unionByPlatFormMinkowski(String model1, String model2, float x, float y, float z, float zUp){
+		String result="";
+		String[] lines ={
+				Tasks.platFormMinkowski(model1, x, y, z, zUp),
+				Codes.rotate(180, 0, 0, Tasks.platFormMinkowski(model2, x, y, z, zUp))
+				};
+		result+= Codes.union(lines);
+		return result;
+	}
+	
+	public static void main(String args[]){//0: input, 1: stl filename// all tests are succesfull
+		String[] lines=null;
+		switch(Integer.parseInt(args[0])){
+		case 0://mold
+			lines= new String[1];
+			lines[0] = Tasks.mold(Codes.importSTL(args[1]),100,100,100);
+			break;
+		case 1://slice
+			//TODO: reset slice
+			break;
+		case 2://crop
+			lines = new String[1];
+			lines[0] = Tasks.crop(Codes.importSTL(args[1]), 0,0,0, 3, 6, 9);
+			break;
+		case 3://flatBottom
+			lines = new String[1];
+			lines[0] = Tasks.flatBottom(Codes.translate(0, 0, -3,Codes.importSTL(args[1])), 100, 100, 3);
+			break;
+		case 4://platform
+			lines = new String[1];
+			lines[0] = Tasks.platForm(Codes.importSTL(args[1]), 100, 100, 3);
+			break;
+		case 5://minkowski//concept not working, adapt in SCAD
+			//TODO: Fix concept
+			lines = new String[1];
+			lines[0] = Tasks.platFormMinkowski(Codes.cylinder(10, 30), 100, 100, 3, 6);
+			break;
+		case 6://union platform
+			lines = new String[1];
+			lines[0] = Tasks.unionByPlatForm(Codes.importSTL(args[1]), Codes.cylinder(5, 10), 40, 40, 3);
+			break;
+		case 7: //union minkowski
+			break;
+		default:
+			break;
+		}
+		SCADWriter.writeSCAD(lines, "TasksTest");
+	}
+}

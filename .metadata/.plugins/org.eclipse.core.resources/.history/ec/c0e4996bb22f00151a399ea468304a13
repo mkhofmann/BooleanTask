@@ -1,0 +1,9 @@
+
+public class ModelNode extends Node {
+
+	ModelNode(Node l, Node r) {
+		super(l, r);
+		// TODO Auto-generated constructor stub
+	}
+
+}

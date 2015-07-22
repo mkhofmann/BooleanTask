@@ -1,0 +1,15 @@
+
+public class ModelNode extends Node {
+	public String model;
+	ModelNode(Node l, Node r, String m) {
+		super(l, r);
+		model =m;
+	}
+	//TODO: Extend to basic Geometries and stls
+	
+	
+	public String encode(){
+		return model;
+	}
+
+}
