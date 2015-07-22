@@ -55,6 +55,11 @@ local.properties
 .settings/
 .loadpath
 
+#MeganStuff
+.metadata/
+.recommenders/
+RemoteSystemTempFiles/
+
 # Eclipse Core
 .project
 
