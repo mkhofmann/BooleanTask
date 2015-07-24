@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import inputOutput.SCADWriter;
+import language.Coordinate;
 import language.Cube;
 import language.Cylinder;
 import language.Difference;
 import language.Node;
 import language.Translate;
 import language.Union;
+import prostheticSystem.SizingBlock;
 
 public class Gauntlet extends Arm{
 	private double t;
@@ -21,7 +23,7 @@ public class Gauntlet extends Arm{
 	private double maxR;
 	
 	Gauntlet(double t,double interval, double width, ArrayList<Double> circs) {
-		super();
+		super(new Coordinate(0,0,0),new Coordinate(0,0,0));//place holder
 		this.t=t;
 		this.interval= interval;
 		this.velcroWidth = interval -2*t;
@@ -42,6 +44,9 @@ public class Gauntlet extends Arm{
 		set.add(shell);
 		set.add(translateCut);
 		super.arm = new Difference(set);
+		Coordinate s = new Coordinate(maxR*2,maxR,interval*circs.size());
+		Coordinate l = new Coordinate(-maxR,0,0);
+		super.size = new SizingBlock(s,l);
 	}
 	
 	private Difference shell(double circ1, double circ2){
@@ -70,8 +75,8 @@ public class Gauntlet extends Arm{
 		switch(Integer.parseInt(args[0])){
 			case 0:
 				ArrayList<Double> elaineCircs = new ArrayList<Double>(8);
-				elaineCircs.add(280.0);
-				elaineCircs.add(270.0);
+				//elaineCircs.add(280.0);
+				//elaineCircs.add(270.0);
 				elaineCircs.add(262.0);
 				elaineCircs.add(240.0);
 				elaineCircs.add(225.0);

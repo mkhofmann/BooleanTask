@@ -1,26 +1,23 @@
 package language;
 
 public class Cube extends Model{
-	private double x;
-	private double y;
-	private double z;
-	public Cube(double x, double y, double z) {
-		super("cube(["+x+","+y+","+z+"])");
-		this.x=x;
-		this.y=y;
-		this.z=z;
+	private Coordinate size;
+	public Cube(Coordinate s) {
+		super("cube(["+s.x+","+s.y+","+s.z+"])");
+		this.size=s;
 	}
-	public Cube(double x, double y, double z, boolean center){
-		super("cube(["+x+","+y+","+z+"], center="+center+");");
-		this.x=x;
-		this.y=y;
-		this.z=z;
+	public Cube(Coordinate s, boolean center){
+		super("cube(["+s.x+","+s.y+","+s.z+"], center="+center+");");
+		this.size=s;
+	}
+	public Cube(double x, double y, double z){
+		this(new Coordinate(x,y,z));
 	}
 	
 	public Translate center(boolean xC, boolean yC, boolean zC){
-		double halfX = x/2;
-		double halfY= y/2;
-		double halfZ= z/2;
+		double halfX = size.x/2;
+		double halfY= size.y/2;
+		double halfZ= size.z/2;
 		if(xC){
 			if(yC){
 				if(zC)//xyz

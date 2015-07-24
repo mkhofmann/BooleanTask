@@ -16,5 +16,7 @@ public class Cylinder extends Model {
 	public Cylinder(double circ1, double circ2, double h, boolean c){
 		this((double)(circ1/(2*Math.PI)),(double)(circ2/(2*Math.PI)), h);
 	}
+	
+	//TODO: Center function? Z axis?
 
 }

@@ -8,6 +8,8 @@ import language.Difference;
 import language.Node;
 import language.Translate;
 import language.Union;
+import prostheticSystem.SCADModel;
+import prostheticSystem.SizingBlock;
 
 public class BelowElbow extends LockingMechanism{
 	double side;
@@ -38,7 +40,7 @@ public class BelowElbow extends LockingMechanism{
 		ArrayList<Node> lockDif = new ArrayList<Node>();
 		lockDif.add(this.block());
 		lockDif.add(this.LockInterior());
-		super.lock = new Difference(lockDif);		
+		super.lock = new SCADModel(new Difference(lockDif),new SizingBlock(this.side, this.side,this.length,-this.side/2,-this.side/2,0));		
 	}
 	private Node block(){
 		return new Cube(this.side, this.side, this.length).center(true, true, false);
@@ -57,16 +59,9 @@ public class BelowElbow extends LockingMechanism{
 		ArrayList<Node> keyUnion = new ArrayList<Node>();
 		keyUnion.add(new Translate(new Cube(this.headS,this.headS,this.headL).center(true, true, false),0,0,this.neckL));//head
 		keyUnion.add(new Translate(new Cube(this.neckS, this.neckS, this.neckL+2*this.headL).center(true, true, false),0,0,-2*this.headL));//neck
-		super.key = new Union(keyUnion);
+		super.key = new SCADModel(new Union(keyUnion),new SizingBlock(this.headS, this.headS,this.neckL+3*this.headL,-this.headS/2, -this.headS/2,-2*this.headL));
 	}
-	@Override
-	public Translate LowerCenterLock() {
-		return new Translate(super.lock,0,0,-length);
-	}
-	@Override
-	public Translate LowerCenterKey() {
-		return new Translate(super.key,0,0,-neckL-headL);
-	}
+
 	
 	public static void main(String[] args){
 		double side=50;
@@ -77,7 +72,7 @@ public class BelowElbow extends LockingMechanism{
 		double headS=40;
 		double space=1;
 		BelowElbow lockTest = new BelowElbow(side,length,neckL,neckS,headL,headS,space);
-		SCADWriter.writeSCAD(lockTest.LowerCenterKey().encode(), "BelowElbowTest");
+		SCADWriter.writeSCAD(lockTest.key.encodeSizeCheck(), "BelowElbowTest");
 	}
 	
 	

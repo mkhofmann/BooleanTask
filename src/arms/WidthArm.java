@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import inputOutput.SCADWriter;
+import language.Coordinate;
 import language.Cube;
 import language.Cylinder;
 import language.Difference;
 import language.Node;
 import language.Translate;
 import language.Union;
+import prostheticSystem.SizingBlock;
 
 public class WidthArm extends Arm{
 	private Difference halfCut;
@@ -21,7 +23,7 @@ public class WidthArm extends Arm{
 	private ArrayList<Double> widths;
 
 	public WidthArm(double t,double interval, double width, ArrayList<Double> widths) {
-		super();
+		super(new Coordinate(0,0,0), new Coordinate(0,0,0));
 		this.t=t;
 		this.interval= interval;
 		this.velcroWidth = interval -2*t;
@@ -41,6 +43,9 @@ public class WidthArm extends Arm{
 		set.add(shell);
 		set.add(translateCut);
 		halfCut = new Difference(set);
+		Coordinate s = new Coordinate(maxR*2,maxR,interval*widths.size());
+		Coordinate l = new Coordinate(-maxR,0,0);
+		super.size = new SizingBlock(s,l);
 	}
 	
 	private Difference shell(double width1, double width2){
