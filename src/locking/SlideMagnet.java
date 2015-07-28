@@ -30,6 +30,7 @@ public class SlideMagnet extends LockingMechanism{
 	}
 	
 	private Node prism(){//TODO: make catch constant with variable width
+		
 		double a = Math.toDegrees(Math.atan(2*height/length));
 		double h = Math.sqrt((length*length)/64 + (height*height)/16);
 		Difference diff = new Difference(new ArrayList<Node>(3));

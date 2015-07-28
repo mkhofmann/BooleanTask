@@ -17,4 +17,8 @@ public class Coordinate {
 		this.y=y;
 		this.z=z;
 	}
+	
+	public String encode(){
+		return "["+x+","+y+","+z+"]";
+	}
 }
