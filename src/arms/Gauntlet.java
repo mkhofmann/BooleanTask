@@ -63,11 +63,6 @@ public class Gauntlet extends Arm{
 		return rectCyl;
 	}
 	
-	@Override
-	public Translate lowerCenter() {
-		return new Translate(super.arm,0,0,-(this.circs.size()-1)*this.interval);
-	}
-	
 	public static void main(String[] args){
 		double t= 3;
 		double intv =30;
@@ -97,7 +92,7 @@ public class Gauntlet extends Arm{
 				megCircs.add(160.0);
 				megCircs.add(150.0);
 				Gauntlet megan = new Gauntlet(t,intv, width, megCircs);
-				SCADWriter.writeSCAD(megan.lowerCenter().encode(), "MeganGauntlet");
+				//SCADWriter.writeSCAD(megan.lowerCenter().encode(), "MeganGauntlet");
 				break;
 			default:
 				break;

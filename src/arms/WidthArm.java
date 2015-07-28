@@ -65,11 +65,7 @@ public class WidthArm extends Arm{
 		rectCyl.addChild(new Translate(new Cube(width, maxR+t,interval), -width/2, 0,0));//rect
 		return rectCyl;
 	}
-	@Override
-	public Translate lowerCenter() {
-		return new Translate(super.arm,0,0,-(this.widths.size()-1)*this.interval);
-	}
-	
+
 	@Override
 	public String encode() {
 		return halfCut.encode();

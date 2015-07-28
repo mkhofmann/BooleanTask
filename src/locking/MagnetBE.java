@@ -44,11 +44,12 @@ public class MagnetBE extends BelowElbow{
 	}
 
 	public static void main(String[] args){;
-		double length=100;
-		double neckL=60;
-		double neckS=20;
-		double space=1;
+		double length=39;
+		double neckL=13;
+		double neckS=15;
+		double space=1.5;
 		MagnetBE lockTest = new MagnetBE(length,neckL,neckS,space);
-		SCADWriter.writeSCAD(lockTest.encodeMechanism(), "MagnetBETest");
+		SCADWriter.writeSCAD(lockTest.encodeLock(), "MagnetBELock");
+		//SCADWriter.writeSCAD(lockTest.encodeKey(), "MagnetBEKey");
 	}
 }

@@ -15,10 +15,12 @@ public class ConnectionBlock {
 	}
 	
 	public SCADModel unionToBlock(ConnectionBlock other){
+		return model;
 		
 	}
 	
 	public SCADModel unionModels(ConnectionBlock other){
+		return model;
 		
 	}
 	
@@ -27,6 +29,7 @@ public class ConnectionBlock {
 	}
 	
 	public String encode(){
+		return null;
 		
 	}
 	

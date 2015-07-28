@@ -6,7 +6,6 @@ import inputOutput.SCADWriter;
 import language.Difference;
 import language.Node;
 import language.Rotate;
-import language.Cylinder;
 import language.Cube;
 import language.Translate;
 import language.Union;
@@ -33,26 +32,39 @@ public class MagnetSnap extends LockingMechanism {
 	@Override
 	protected void makeLock() {
 		Difference diff = new Difference(new ArrayList<Node>());
-		diff.addChild(new Cylinder(radius,height));
+		double diagonal = Math.sqrt(2)*this.radius;
+		diff.addChild(new Translate(new Rotate(new Cube(diagonal,diagonal,height,true),0,0, -45),0,0,this.height/2));
 		double slices = height/(2*this.sliceH);
 		double xs= medium*sliceH/height;
+		double j= slices;
 		for(int i=0; i<=slices; i++){
+			j = (slices-i);
 			diff.addChild(new Translate(new Cube(xs*i+radius,xs*i+radius,sliceH),-i*xs,-i*xs,i*sliceH));
-			diff.addChild(new Translate(new Cube(medium-i*xs,medium-i*xs,sliceH),-(slices-i)*xs,-(slices-i)*xs,i*sliceH+height/2));
+			diff.addChild(new Translate(new Cube(xs*j+radius,xs*j+radius,sliceH),-j*xs,-j*xs,i*sliceH+height/2));
 		}
-		diff.addChild(new Rotate(super.magnet(),0.0,90.0,45.0));
+		diff.addChild(new Translate(new Rotate(super.magnet(),-90,0,-45),-this.medium+1.5,-this.medium+1.5,this.height/2));
 		super.lock=new SCADModel(diff, new SizingBlock(radius, height));
 	}
 
 	@Override
 	protected void makeKey() {
+		
 		Union union = new Union(new ArrayList<Node>());
 		double slices = height/(2*this.sliceH);
-		double xs= medium*sliceH/height;
+		double xs= medium*sliceH/(height/2);
+		double j= slices;
 		for(int i=0; i<=slices; i++){
+			j = (slices-i);
 			union.addChild(new Translate(new Cube(xs*i+radius,xs*i+radius,sliceH),-i*xs,-i*xs,i*sliceH));
-			union.addChild(new Translate(new Cube(medium-i*xs,medium-i*xs,sliceH),-(slices-i)*xs,-(slices-i)*xs,i*sliceH+height/2));
+			union.addChild(new Translate(new Cube(xs*j+radius,xs*j+radius,sliceH),-j*xs,-j*xs,i*sliceH+height/2));
 		}
+		double s = this.medium+this.radius;
+		double diagonal = Math.sqrt(2)*s;
+		union.addChild(new Translate(new Rotate(new Cube(diagonal,diagonal,height,true),0,0,-45),this.radius,this.radius,this.height/2));
+		Difference diff = new Difference(new ArrayList<Node>(2));
+		diff.addChild(union);
+		diff.addChild(new Translate(new Rotate(super.magnet(),-90,0,-45),-this.medium,-this.medium,this.height/2));
+		super.key=new SCADModel(diff, new SizingBlock(radius, height));
 	}
 
 	public static void main(String[] arg){
@@ -61,6 +73,7 @@ public class MagnetSnap extends LockingMechanism {
 		double z=.1;
 		double m=10;
 		MagnetSnap snap = new MagnetSnap(r,h,z,m);
-		SCADWriter.writeSCAD(snap.encodeLock(), "magnetSnap");//TODO: DIDN"Tworkd
+		SCADWriter.writeSCAD(snap.encodeLock(), "magnetSnapLock");
+		SCADWriter.writeSCAD(snap.encodeKey(), "magnetSnapKey");
 	}
 }

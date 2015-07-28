@@ -10,6 +10,9 @@ public class Cube extends Model{
 		super("cube(["+s.x+","+s.y+","+s.z+"], center="+center+");");
 		this.size=s;
 	}
+	public Cube(double x,double y, double z, boolean center){
+		this(new Coordinate(x,y,z),center);
+	}
 	public Cube(double x, double y, double z){
 		this(new Coordinate(x,y,z));
 	}
