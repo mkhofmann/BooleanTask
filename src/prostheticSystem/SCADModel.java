@@ -42,12 +42,12 @@ public class SCADModel {
 	
 	public void translate(Coordinate t){
 		size.Translate(t);
-		translater= new Translate(scaler, size.location);
+		translater.setC(t);
 	}
 	
 	public void Scale(Coordinate s){
 		size.Scale(s);
-		scaler = new Scale(head, size.size);
+		scaler.setC(s);
 	}
 	
 	public String encode(){
