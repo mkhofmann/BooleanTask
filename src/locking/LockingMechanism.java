@@ -5,8 +5,8 @@ import language.Node;
 import prostheticSystem.SCADModel;
 
 public abstract class LockingMechanism{
-	protected SCADModel lock;
-	protected SCADModel key;
+	public SCADModel lock;
+	public SCADModel key;
 	
 	
 	public static final double MAGD = 9;
@@ -23,13 +23,13 @@ public abstract class LockingMechanism{
 		lock.centerX();
 		lock.centerY();
 		lock.zeroZ();
-		lock.translate(new Coordinate(0,0,-lock.getSize().size.z));
+		lock.addTranslate(new Coordinate(0,0,-lock.getSize().size.z));
 	}
 	public void LowerCenterKey(){
 		key.centerX();
 		key.centerY();
 		key.zeroZ();
-		key.translate(new Coordinate(0,0,-lock.getSize().size.z));
+		key.addTranslate(new Coordinate(0,0,-lock.getSize().size.z));
 	}
 	
 	public String encodeLock(){

@@ -18,7 +18,6 @@ public class Gauntlet extends Arm{
 	private double interval;
 	private double width;
 	private double velcroWidth;
-	private ArrayList<Double> circs;
 	private double maxCirc;
 	private double maxR;
 	
@@ -27,7 +26,6 @@ public class Gauntlet extends Arm{
 		this.t=t;
 		this.interval= interval;
 		this.velcroWidth = interval -2*t;
-		this.circs = circs;
 		this.maxCirc = Collections.max(circs);
 		this.maxR = maxCirc/(2*Math.PI);
 		this.width = width;
@@ -79,6 +77,7 @@ public class Gauntlet extends Arm{
 				elaineCircs.add(165.0);
 				elaineCircs.add(155.0);
 				Gauntlet elaine = new Gauntlet(t,intv, width, elaineCircs);
+				//Scale e = new Scale(elaine.arm, 1.2,1.2,0);
 				SCADWriter.writeSCAD(elaine.encode(), "ElaineGauntlet");
 				break;
 			case 1:
@@ -91,7 +90,7 @@ public class Gauntlet extends Arm{
 				megCircs.add(170.0);
 				megCircs.add(160.0);
 				megCircs.add(150.0);
-				Gauntlet megan = new Gauntlet(t,intv, width, megCircs);
+				//Gauntlet megan = new Gauntlet(t,intv, width, megCircs);
 				//SCADWriter.writeSCAD(megan.lowerCenter().encode(), "MeganGauntlet");
 				break;
 			default:

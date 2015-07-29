@@ -20,8 +20,6 @@ public class WidthArm extends Arm{
 	private double width;
 	private double velcroWidth;
 	private double maxR;
-	private ArrayList<Double> widths;
-
 	public WidthArm(double t,double interval, double width, ArrayList<Double> widths) {
 		super(new Coordinate(0,0,0), new Coordinate(0,0,0));
 		this.t=t;
@@ -29,8 +27,6 @@ public class WidthArm extends Arm{
 		this.velcroWidth = interval -2*t;
 		this.maxR = Collections.max(widths)/2;
 		this.width = width;
-		this.widths=widths;
-		
 		ArrayList<Node> shells = new ArrayList<Node>(widths.size());
 		for(int i=0; i<widths.size()-1; i++){//build shells
 			Translate translateShell = new Translate(this.shell(widths.get(i),widths.get(i+1)), 0,0,i*interval);

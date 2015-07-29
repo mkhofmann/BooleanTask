@@ -2,7 +2,7 @@
 package language;
 
 public class Translate extends Modifier {
-	private Coordinate c;
+	public Coordinate c;
 	public Translate(Node n){
 		this(n,0,0,0);
 	}
@@ -24,9 +24,16 @@ public class Translate extends Modifier {
 		c=s;
 	}
 	
+	public void addToC(double x, double y, double z){
+		setC(new Coordinate(c.x+x, c.y+y,c.z+z));
+	}
+	public void addToC(Coordinate t){
+		addToC(t.x,t.y,t.z);
+	}
+	
 	@Override
 	public String encode(){
-		return "translate(["+c.x+","+c.y+","+c.z+"])+"+super.child.encode();
+		return "translate(["+c.x+","+c.y+","+c.z+"])"+super.child.encode();
 		
 	}
 }

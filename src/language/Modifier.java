@@ -5,6 +5,10 @@ public abstract class Modifier extends Action {
 		super(a);
 		child = n;
 	}
+	
+	public void setChild(Node c){
+		child=c;
+	}
 
 	@Override
 	public String encode() {

@@ -4,6 +4,7 @@ public class Scale extends Modifier {
 	
 	public Scale(Node n,Coordinate s) {
 		super(n,"scale(["+s.x+","+s.y+","+s.z+"]) ");
+		c=s;
 	}
 	
 	public Scale(Node n, double x, double y, double z){
@@ -24,7 +25,7 @@ public class Scale extends Modifier {
 	
 	@Override
 	public String encode(){
-		return "translate(["+c.x+","+c.y+","+c.z+"])+"+super.child.encode();
+		return "scale(["+c.x+","+c.y+","+c.z+"])"+super.child.encode();
 		
 	}
 	

@@ -28,8 +28,11 @@ public class SizingBlock {
 	public void Scale(Coordinate s){
 		size = new Coordinate(size.x*s.x, size.y*s.y, size.z*s.z);
 	}
-	public void Translate(Coordinate t){
+	public void addTranslate(Coordinate t){
 		location = new Coordinate(location.x+t.x, location.y+t.y, location.z+t.z);
+	}
+	public void setTranslate(Coordinate t){
+		location = t;
 	}
 	
 	public Intersection check(){

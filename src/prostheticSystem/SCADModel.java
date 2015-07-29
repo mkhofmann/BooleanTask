@@ -11,7 +11,7 @@ public class SCADModel {
 	
 	public SizingBlock size;
 	
-	private Translate translater;
+	public Translate translater;
 	private Scale scaler;
 	
 	public SCADModel(Node model, SizingBlock s){
@@ -40,8 +40,12 @@ public class SCADModel {
 		return this.checkSizing().encode();
 	}
 	
-	public void translate(Coordinate t){
-		size.Translate(t);
+	public void addTranslate(Coordinate t){
+		size.addTranslate(t);
+		translater.addToC(t);
+	}
+	public void setTranslate(Coordinate t){
+		size.setTranslate(t);
 		translater.setC(t);
 	}
 	
@@ -56,23 +60,23 @@ public class SCADModel {
 	
 	public void centerX(){
 		this.zeroX();
-		this.translate(new Coordinate(-this.size.size.x/2,0,0));
+		this.addTranslate(new Coordinate(-this.size.size.x/2,0,0));
 	}
 	public void centerY(){
 		this.zeroY();
-		this.translate(new Coordinate(0,-this.size.size.y/2,0));
+		this.addTranslate(new Coordinate(0,-this.size.size.y/2,0));
 	}
 	public void centerZ(){
 		this.zeroZ();
-		this.translate(new Coordinate(0,0,-this.size.size.z/2));
+		this.addTranslate(new Coordinate(0,0,-this.size.size.z/2));
 	}
 	public void zeroX(){
-		this.translate(new Coordinate(-this.size.location.x,0,0));
+		this.addTranslate(new Coordinate(-this.size.location.x,0,0));
 	}
 	public void zeroY(){
-		this.translate(new Coordinate(0,-this.size.location.y,0));
+		this.addTranslate(new Coordinate(0,-this.size.location.y,0));
 	}
 	public void zeroZ(){
-		this.translate(new Coordinate(0,0,-this.size.location.z));
+		this.addTranslate(new Coordinate(0,0,-this.size.location.z));
 	}
 }
