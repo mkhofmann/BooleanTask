@@ -2,15 +2,14 @@ package connection;
 
 import java.util.ArrayList;
 
-import inputOutput.SCADWriter;
+
 import language.Coordinate;
 import language.Cube;
 import language.Union;
 import prostheticSystem.SCADModel;
-import prostheticSystem.TestCube;
 import language.Node;
 import language.Translate;
-public class ConnectionBlock {
+public abstract class ConnectionBlock {
 	
 	private SCADModel model;
 	private Translate block;
@@ -23,6 +22,8 @@ public class ConnectionBlock {
 		size =s;
 		block = new Translate(new Cube(size),o);
 	}
+	
+	public abstract Union connectOpposite(ConnectionBlock o) throws Exception;
 	
 	public Union blockModel(){
 		Union u = new Union(new ArrayList<Node>(2));
@@ -66,6 +67,7 @@ public class ConnectionBlock {
 	public Union attach(ConnectionBlock other){
 		Union u = blockModel();
 		other.dragModelTo(Origin);
+		//TODO: drag to edge of matching sizes
 		u.addChild(other.blockModel());
 		return u;		
 	}
@@ -74,12 +76,5 @@ public class ConnectionBlock {
 		return blockModel().encode();
 	}
 	
-	public static void main(String[] args){
-		TestCube model = new TestCube();
-		Coordinate size = new Coordinate(5,20,30);
-		Coordinate l = new Coordinate(20,5,5);
-		ConnectionBlock test = new ConnectionBlock(model,size,l);
-		SCADWriter.writeSCAD(test.encodeBlockModel(), "TestConnection");
-	}
 	
 }

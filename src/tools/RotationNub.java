@@ -18,7 +18,7 @@ public class RotationNub extends Tool {
 		u.addChild(new Cylinder(3.5,10));
 		u.addChild(new Translate(new Cylinder(2.2,3),0,0,10));
 		u.addChild(new Translate(new Sphere(4),0,0,16.5));	
-		super.tool=u;
+		super.head=u;
 	}
 	
 	public static void main(String args[]){

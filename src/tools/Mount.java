@@ -17,7 +17,7 @@ public class Mount extends Tool{
 		diff.addChild(new Cube(w,d,h));
 		for(Coordinate c: bolts)
 			diff.addChild(new Translate(new Cylinder(c.z,h),c.x, c.y, 0));
-		super.tool = diff;		
+		super.head = diff;		
 	}
 
 }

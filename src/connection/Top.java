@@ -1,9 +1,7 @@
 package connection;
-import inputOutput.SCADWriter;
 import language.Coordinate;
 import language.Union;
 import prostheticSystem.SCADModel;
-import prostheticSystem.TestCylinder;
 
 public class Top extends ConnectionBlock{
 
@@ -15,14 +13,10 @@ public class Top extends ConnectionBlock{
 		super.extendZ(e);
 	}
 	
-	public static void main(String args[]){
-		TestCylinder model = new TestCylinder();
-		Top test = new Top(model,4);
-		TestCylinder model2 = new TestCylinder();
-		model2.addTranslate(new Coordinate(10,10,10));
-		Base testB = new Base(model2,4);
-		testB.extend(2);
-		Union u = test.attach(testB);
-		SCADWriter.writeSCAD(u.encode(), "TestConnection");
+	@Override
+	public Union connectOpposite(ConnectionBlock o) throws Exception {
+		if(o instanceof Base)
+			return super.attach(o);
+		else throw new Exception("Invalid Side");
 	}
 }

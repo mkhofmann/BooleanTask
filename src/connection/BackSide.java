@@ -1,6 +1,7 @@
 package connection;
 
 import language.Coordinate;
+import language.Union;
 import prostheticSystem.SCADModel;
 
 public class BackSide extends ConnectionBlock {
@@ -11,6 +12,13 @@ public class BackSide extends ConnectionBlock {
 	
 	public void extend(double e){
 		super.extendY(e);
+	}
+
+	@Override
+	public Union connectOpposite(ConnectionBlock o) throws Exception {
+		if(o instanceof FrontSide)
+			return super.attach(o);
+		else throw new Exception("Invalid Side");
 	}
 
 }
