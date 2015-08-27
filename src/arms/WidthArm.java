@@ -1,6 +1,7 @@
 package arms;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 
 import inputOutput.SCADWriter;
@@ -20,8 +21,42 @@ public class WidthArm extends Arm{
 	private double width;
 	private double velcroWidth;
 	private double maxR;
+	
+	public WidthArm(double t, double interval, double width, Double[] widths){
+		this(t,interval,width, new ArrayList<Double>(Arrays.asList(widths)));
+	}
+	public WidthArm(double t, double interval, double width, Double[] widths, double expand){
+		this(t,interval,width, new ArrayList<Double>(Arrays.asList(widths)),expand);
+	}
 	public WidthArm(double t,double interval, double width, ArrayList<Double> widths) {
 		super(new Coordinate(0,0,0), new Coordinate(0,0,0));
+		this.t=t;
+		this.interval= interval;
+		this.velcroWidth = interval -2*t;
+		this.maxR = Collections.max(widths)/2;
+		this.width = width;
+		ArrayList<Node> shells = new ArrayList<Node>(widths.size());
+		for(int i=0; i<widths.size()-1; i++){//build shells
+			Translate translateShell = new Translate(this.shell(widths.get(i),widths.get(i+1)), 0,0,i*interval);
+			shells.add(translateShell);
+		}
+		Union shell = new Union(shells);//union shells
+		Cube cut = new Cube(2*maxR+2*t,maxR+t, widths.size()*interval);
+		Translate translateCut = new Translate(cut, -1*(maxR+t), -1*(maxR+t), 0);
+		ArrayList<Node> set = new ArrayList<Node>(2);
+		set.add(shell);
+		set.add(translateCut);
+		halfCut = new Difference(set);
+		Coordinate s = new Coordinate(maxR*2,maxR,interval*widths.size());
+		Coordinate l = new Coordinate(-maxR,0,0);
+		super.size = new SizingBlock(s,l);
+	}
+	
+	public WidthArm(double t, double interval,  double width, ArrayList<Double> widths, double expand){
+		super(new Coordinate(0, 0, 0), new Coordinate(0, 0, 0));// place holder
+		for(Double c: widths){
+			c+=expand;
+		}
 		this.t=t;
 		this.interval= interval;
 		this.velcroWidth = interval -2*t;

@@ -18,7 +18,7 @@ public class SCADModel {
 	public SizingBlock size;
 
 	public Translate translater;
-	private Scale scaler;
+	public Scale scaler;
 
 	public SCADModel(Node model, SizingBlock s) {
 		size = s;

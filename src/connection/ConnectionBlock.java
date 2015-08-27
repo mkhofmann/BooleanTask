@@ -2,19 +2,18 @@ package connection;
 
 import java.util.ArrayList;
 
-
+import language.Node;
 import language.Coordinate;
 import language.Cube;
 import language.Union;
 import prostheticSystem.SCADModel;
-import language.Node;
 import language.Translate;
 public abstract class ConnectionBlock {
 	
-	private SCADModel model;
+	public SCADModel model;
 	private Translate block;
-	private Coordinate size;
-	private Coordinate Origin;
+	public Coordinate size;
+	public Coordinate Origin;
 	
 	public ConnectionBlock(SCADModel m, Coordinate s, Coordinate o){
 		model =m;
@@ -42,6 +41,7 @@ public abstract class ConnectionBlock {
 		block.setChild(new Cube(s));
 		size =s;
 	}
+	
 	public void extendZ(double e){
 		this.reSize(new Coordinate(size.x, size.y, size.z+e));
 	}
@@ -67,9 +67,16 @@ public abstract class ConnectionBlock {
 	public Union attach(ConnectionBlock other){
 		Union u = blockModel();
 		other.dragModelTo(Origin);
-		//TODO: drag to edge of matching sizes
 		u.addChild(other.blockModel());
 		return u;		
+	}
+	public Union attachNoBlock(ConnectionBlock other){
+		Union u = new Union(new ArrayList<Node>(2));
+		other.dragModelTo(Origin);
+		this.dragModel(new Coordinate(0,0,this.size.z));
+		u.addChild(this.model.translater);
+		u.addChild(other.model.translater);
+		return u;
 	}
 	
 	public String encodeBlockModel(){

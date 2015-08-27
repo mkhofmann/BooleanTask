@@ -1,6 +1,7 @@
 package arms;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 
 import inputOutput.SCADWriter;
@@ -20,7 +21,14 @@ public class Gauntlet extends Arm {
 	private double velcroWidth;
 	private double maxCirc;
 	private double maxR;
-
+	
+	public Gauntlet(double t, double interval, double width, Double[] circs){
+		this(t,interval,width, new ArrayList<Double>(Arrays.asList(circs)));
+	}
+	public Gauntlet(double t, double interval, double width, Double[] circs, double expand){
+		this(t,interval,width, new ArrayList<Double>(Arrays.asList(circs)),expand);
+	}
+	
 	public Gauntlet(double t, double interval, double width, ArrayList<Double> circs) {
 		super(new Coordinate(0, 0, 0), new Coordinate(0, 0, 0));// place holder
 		this.t = t;
